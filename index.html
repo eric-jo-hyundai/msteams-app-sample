@@ -12,7 +12,7 @@
 
 
 
-        <div id="debug">
+        <div id="debug" style="width:100%;height:300px;background:yellow;color:red;">
 
         </div>
         
@@ -22,7 +22,7 @@
 
         <script>
             function onClickInit() {
-                alert("onClickInit - call");
+                document.getElementById("debug").innerHTML += "onClickInit - call";
                 microsoftTeams.initialize();
             }
 
