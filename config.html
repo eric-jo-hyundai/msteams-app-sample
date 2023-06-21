@@ -1,81 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tab Configuration</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
+    <title>App Settings</title>
+    <!-- script src="https://statics.teams.cdn.office.net/sdk/v1.11.0/js/MicrosoftTeams.min.js"></script -->
     <script src="./MicrosoftTeams.min.js"></script>
+</head>
+<body>
+    <h1>App Settings</h1>
+    <form id="settingsForm">
+        <label for="nameInput">Your Name:</label>
+        <input type="text" id="nameInput" required>
+        <button type="submit">Save</button>
+    </form>
+
     <script>
         microsoftTeams.initialize();
 
-        // 저장 버튼 클릭 시 호출되는 함수
-        function saveConfiguration() {
-            // 설정 값을 가져오는 로직
-            var tabName = document.getElementById('tabName').value;
-            var tabColor = document.getElementById('tabColor').value;
+        // Load current settings when the page is loaded
+        microsoftTeams.settings.registerOnSaveHandler((saveEvent) => {
+            const nameInput = document.getElementById('nameInput');
+            const name = nameInput.value;
 
-            // 유효성 검사 로직
-            if (tabName.trim() === '') {
-                alert('Tab Name is required.');
-                return;
-            }
-
-            // 사용자 설정 값 저장
             microsoftTeams.settings.setSettings({
-                entityId: 'your_tab_entity_id',
-                contentUrl: 'your_tab_content_url',
-                suggestedDisplayName: tabName,
-                websiteUrl: 'your_tab_website_url'
+                entityId: '<Your_Entity_ID>',
+                contentUrl: window.location.origin + '/index.html',
+                suggestedDisplayName: name
             });
 
-            // 저장 완료 메시지 표시
+            saveEvent.notifySuccess();
+        });
+
+        // Load current settings when the page is loaded
+        microsoftTeams.settings.getSettings((settings) => {
+            const nameInput = document.getElementById('nameInput');
+            nameInput.value = settings.suggestedDisplayName || '';
+        });
+
+        // Handle form submission
+        const form = document.getElementById('settingsForm');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
             microsoftTeams.settings.saveApp();
-            alert('Configuration saved successfully!');
-        }
+        });
     </script>
-</head>
-<body>
-    <h1>Tab Configuration</h1>
-    <label for="tabName">Tab Name:</label>
-    <input type="text" id="tabName">
-    <br>
-    <label for="tabColor">Tab Color:</label>
-    <select id="tabColor">
-        <option value="#FF0000">Red</option>
-        <option value="#00FF00">Green</option>
-        <option value="#0000FF">Blue</option>
-    </select>
-    <br>
-    <button onclick="saveConfiguration()">Save</button>
 </body>
 </html>
