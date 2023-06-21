@@ -10,42 +10,53 @@
         <!-- script src="https://cdn.jsdelivr.net/npm/@microsoft/teams-js@2.12.0/dist/MicrosoftTeams.min.js" integrity="sha256-yi0otRWk3xyXvp8qiiV55Xi/1EVuLgmodyQjaBnNmUU=" crossorigin="anonymous"></script -->
         <script src="MicrosoftTeams.min.js"></script>
 
-        <script>
-            microsoftTeams.initialize();
-
-            // 사용자 정보 가져오기
-            microsoftTeams.getContext((context) => {
-                const userObjectId = context.userObjectId;
-                const userDisplayName = context.userDisplayName;
-                const tenantId = context.tid;
-                const tenantDisplayName = context.tidu;
-
-                // 화면에 사용자 정보 출력하기
-                var htmls = [];
-                htmls.push(`User Object ID: ${userObjectId}`);
-                htmls.push(`User Display Name: ${userDisplayName}`);
-                htmls.push(`Tenant ID: ${tenantId}`);
-                htmls.push(`Tenant Display Name: ${tenantDisplayName}`);
-
-                document.getElementById("debug").html += htmls.join("<br>");
-            });
-
-            // 테넌트 정보 가져오기
-            microsoftTeams.getContext((context) => {
-                const tenantId = context.tid;
-                const tenantDisplayName = context.tidu;
-
-                // 화면에 테넌트 정보 출력하기
-                var htmls = [];
-                htmls.push(`Tenant ID: ${tenantId}`);
-                htmls.push(`Tenant Display Name: ${tenantDisplayName}`);
-                
-                document.getElementById("debug").html += htmls.join("<br>");
-            });
-        </script>
 
         <div id="debug">
 
         </div>
+        
+        <button type="button" onclick="onClickInit()">initialize()</button>
+        <button type="button" onclick="onClickGetUserInfo()">GetUserInfo()</button>
+        <button type="button" onclick="onClickGetTenantInfo()">TenantInfo()</button>
+
+        <script>
+            function onClickInit() {
+                microsoftTeams.initialize();
+            }
+
+            function onClickGetUserInfo() {
+                // 사용자 정보 가져오기
+                microsoftTeams.getContext((context) => {
+                    const userObjectId = context.userObjectId;
+                    const userDisplayName = context.userDisplayName;
+                    const tenantId = context.tid;
+                    const tenantDisplayName = context.tidu;
+    
+                    // 화면에 사용자 정보 출력하기
+                    var htmls = [];
+                    htmls.push(`User Object ID: ${userObjectId}`);
+                    htmls.push(`User Display Name: ${userDisplayName}`);
+                    htmls.push(`Tenant ID: ${tenantId}`);
+                    htmls.push(`Tenant Display Name: ${tenantDisplayName}`);
+    
+                    document.getElementById("debug").html += htmls.join("<br>");
+                });
+            }
+
+            function onClickGetTenantInfo() {
+                // 테넌트 정보 가져오기
+                microsoftTeams.getContext((context) => {
+                    const tenantId = context.tid;
+                    const tenantDisplayName = context.tidu;
+    
+                    // 화면에 테넌트 정보 출력하기
+                    var htmls = [];
+                    htmls.push(`Tenant ID: ${tenantId}`);
+                    htmls.push(`Tenant Display Name: ${tenantDisplayName}`);
+                    
+                    document.getElementById("debug").html += htmls.join("<br>");
+                });
+            }
+        </script>
     </body>
 </html>
