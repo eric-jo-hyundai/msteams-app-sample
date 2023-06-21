@@ -65,7 +65,7 @@
 
             function onClickGetToken() {
                 // Microsoft Teams에서 토큰 가져오기
-                const authToken = await microsoftTeams.authentication.getAuthToken({
+                const authToken = microsoftTeams.authentication.getAuthToken({
                   successCallback: (result) => {
                     const accessToken = result;
                     // 토큰을 사용하여 API 호출
@@ -79,7 +79,7 @@
             }
 
             // Microsoft Graph API 호출
-            async function callGraphAPI(accessToken) {
+            function callGraphAPI(accessToken) {
               try {
                 const response = await fetch('https://graph.microsoft.com/v1.0/me', {
                   headers: {
