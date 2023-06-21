@@ -22,6 +22,7 @@
 
         <script>
             function onClickInit() {
+                alert("onClickInit - call");
                 microsoftTeams.initialize();
             }
 
@@ -40,7 +41,7 @@
                     htmls.push(`Tenant ID: ${tenantId}`);
                     htmls.push(`Tenant Display Name: ${tenantDisplayName}`);
     
-                    document.getElementById("debug").html += htmls.join("<br>");
+                    document.getElementById("debug").innerHTML += htmls.join("<br>");
                 });
             }
 
@@ -55,7 +56,7 @@
                     htmls.push(`Tenant ID: ${tenantId}`);
                     htmls.push(`Tenant Display Name: ${tenantDisplayName}`);
                     
-                    document.getElementById("debug").html += htmls.join("<br>");
+                    document.getElementById("debug").innerHTML += htmls.join("<br>");
                 });
             }
         </script>
