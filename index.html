@@ -69,6 +69,7 @@
                   successCallback: (result) => {
                     const accessToken = result;
                     // 토큰을 사용하여 API 호출
+                      document.getElementById("debug").innerHTML += "<p>accessToken: " + accessToken + "</p>";
                     callGraphAPI(accessToken);
                   },
                   failureCallback: (error) => {
@@ -87,8 +88,6 @@
                   }
                 });
 
-                document.getElementById("debug").innerHTML += "<b>JSON.stringify(response.json())</b><br>" + JSON.stringify(response.json());
-            
                 if (response.ok) {
                   const userData = response.json();
                   displayUserInfo(userData);
